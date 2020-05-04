@@ -33,7 +33,7 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNavHostFragment=(NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment);
+//        mNavHostFragment=(NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment);
     }
 
     @Override
@@ -50,7 +50,8 @@ public class WelcomeFragment extends Fragment {
                 Email=editTextEmail.getText().toString();
                 Password=editTextPassword.getText().toString();
                 if (!Email.isEmpty() && !Password.isEmpty()){
-                    mNavHostFragment.getNavController().navigate(R.id.action_registrationFragment_to_homeFragment);
+//                    mNavHostFragment.getNavController().navigate(R.id.action_registrationFragment_to_homeFragment);
+                    Navigation.findNavController(v).navigate(R.id.action_welcomeFragment_to_homeFragment);
                 }
             }
         });

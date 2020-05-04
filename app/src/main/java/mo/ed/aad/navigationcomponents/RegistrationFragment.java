@@ -26,7 +26,7 @@ public class RegistrationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_registration, container, false);
         view.findViewById(R.id.button_registration).setOnClickListener(Navigation.createNavigateOnClickListener(
-                R.id.action_registrationFragment_to_homeFragment
+                R.id.action_registrationFragment_to_homeFragment2
         ));
         return view;
     }
