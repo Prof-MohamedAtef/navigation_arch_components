@@ -41,5 +41,18 @@
         android:id="@+id/homeFragment"
         android:name="mo.ed.aad.navigationcomponents.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_boatFragment"
+            app:destination="@id/boatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/boatFragment"
+        android:name="mo.ed.aad.navigationcomponents.BoatFragment"
+        android:label="fragment_boat"
+        tools:layout="@layout/fragment_boat" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
