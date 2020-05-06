@@ -34,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        stackNotification();
+//        stackNotification();
     }
 
     private void stackNotification() {
 
         // TODO: 5/6/20 create arguments for the builder
-        Bundle args = new BoatFragmentArgs.Builder(3).build().toBundle();
+        Bundle args = new BoatFragmentArgs.Builder(1).build().toBundle();
 
         // TODO: 5/6/20 pendingIntent as NavDeepLinkBuilder for Navigation Components
         PendingIntent pendingIntent = new NavDeepLinkBuilder(this)
