@@ -9,6 +9,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.net.Uri;
@@ -33,56 +34,59 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initNotification();
+        stackNotification();
     }
 
-    private void initNotification() {
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mSoundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getApplicationContext().getPackageName() + "/" + R.raw.notification);
+    private void stackNotification() {
 
-        // Android O requires a Notification Channel.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
-            mChannel.enableLights(true);
-            mChannel.enableVibration(true);
-            mChannel.setDescription(CHANNEL_DESCRIPTION);
+        // TODO: 5/6/20 create arguments for the builder
+        Bundle args = new BoatFragmentArgs.Builder(3).build().toBundle();
 
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                    .build();
-            mChannel.setSound(mSoundUri, audioAttributes);
+        // TODO: 5/6/20 pendingIntent as NavDeepLinkBuilder for Navigation Components
+        PendingIntent pendingIntent = new NavDeepLinkBuilder(this)
+                .setGraph(R.navigation.nav_graph)
+                .setDestination(R.id.boatFragment)
+                .setArguments(args)
+                .createPendingIntent();
 
-            if (mNotificationManager != null) {
-                mNotificationManager.createNotificationChannel(mChannel);
-            }
 
-            // TODO: 5/6/20 create arguments for the notification
-            Bundle args = new BoatFragmentArgs.Builder(3).build().toBundle();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getApplicationContext(), "notify_001")
+                        .setContentTitle("New On Sale!")
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentIntent(pendingIntent);;
+//        Intent ii = new Intent(getApplicationContext(), SecondActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
 
-// TODO: 5/6/20 pendingIntent as NavDeepLinkBuilder for Navigation Components
-            PendingIntent fullScreenPendingIntent = new NavDeepLinkBuilder(this)
-                    .setGraph(R.navigation.nav_graph)
-                    .setDestination(R.id.boatFragment)
-                    .setArguments(args)
-                    .createPendingIntent();
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        bigText.bigText("Hi");
+        bigText.setBigContentTitle("Today's Bible Verse");
+        bigText.setSummaryText("Text in detail");
 
-            NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle("New On Sale!")
-                    .setOngoing(true)
-                    .setPriority(Notification.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                    .setWhen(System.currentTimeMillis())
-                    .setContentIntent(fullScreenPendingIntent);
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+        mBuilder.setContentTitle("Your Title");
+        mBuilder.setContentText("Your text");
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setStyle(bigText);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                notification.setChannelId("channel 0");
-            }
+        mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            mNotificationManager.notify(0,notification.build());
+// === Removed some obsoletes
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String channelId = "Your_channel_id";
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
         }
+
+        mNotificationManager.notify(0, mBuilder.build());
 
     }
 }
