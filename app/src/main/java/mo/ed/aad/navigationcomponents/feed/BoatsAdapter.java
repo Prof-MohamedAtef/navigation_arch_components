@@ -9,14 +9,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
-
-import mo.ed.aad.navigationcomponents.FeedFragment;
 import mo.ed.aad.navigationcomponents.HomeFragmentDirections;
 import mo.ed.aad.navigationcomponents.R;
 
@@ -25,10 +24,12 @@ public class BoatsAdapter extends RecyclerView.Adapter<BoatsAdapter.BoatsViewHol
 
     private final Context mContext;
     private final List<Boat> mBoatsList;
+    private final NavController mNavController;
 
-    public BoatsAdapter(Context context, List<Boat> boats){
+    public BoatsAdapter(Context context, List<Boat> boats, NavController navController){
         this.mContext=context;
         this.mBoatsList=boats;
+        this.mNavController=navController;
     }
 
     @NonNull
@@ -66,7 +67,8 @@ public class BoatsAdapter extends RecyclerView.Adapter<BoatsAdapter.BoatsViewHol
     public void onBoatClick(int boatId, View view){
         HomeFragmentDirections.ActionHomeFragmentToBoatFragment action = HomeFragmentDirections.actionHomeFragmentToBoatFragment(boatId);
         action.setId(boatId);
-        Navigation.findNavController(view).navigate(action);
+
+        mNavController.navigate(action);
     }
 
     @Override
