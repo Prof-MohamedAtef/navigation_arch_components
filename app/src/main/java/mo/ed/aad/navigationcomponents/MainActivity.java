@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        stackNotification();
+        stackNotification();
+        // for notification using Navigation Components Deep Linking
     }
 
     private void stackNotification() {
