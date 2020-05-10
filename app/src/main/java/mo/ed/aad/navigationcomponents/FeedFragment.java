@@ -72,7 +72,7 @@ public class FeedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (Navigation.findNavController(view).getCurrentDestination().getId()==R.id.feedFragment){
-            navController= Navigation.findNavController(view);
+            navController= Navigation.findNavController(getActivity(),R.id.feedFragment);
             mAdapter= new BoatsAdapter(getActivity(), Boat.getBoats(), navController);
             recyclerView.setAdapter(mAdapter);
         }

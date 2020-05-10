@@ -21,7 +21,7 @@ import mo.ed.aad.navigationcomponents.feed.Boat;
 public class BoatFragment extends Fragment {
 
     private Boat mBoat;
-    private int boatID;
+    private int boatIndex;
 
     public BoatFragment() {
         // Required empty public constructor
@@ -37,12 +37,12 @@ public class BoatFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle!=null){
-            boatID= Integer.valueOf(bundle.getString("id_dl"));
-        }else {
-            boatID=BoatFragmentArgs.fromBundle(getArguments()).getId();
+//            boatID= Integer.valueOf(bundle.getString("id_dl"));
+//        }else {
+            boatIndex =BoatFragmentArgs.fromBundle(getArguments()).getId();
         }
 
-        mBoat= Boat.getBoat(boatID);
+        mBoat= Boat.getBoat(boatIndex);
         Button button=(Button) view.findViewById(R.id.button);
         TextView priceText=(TextView) view.findViewById(R.id.priceTextView);
         TextView locationText=(TextView)view.findViewById(R.id.locationTextView);

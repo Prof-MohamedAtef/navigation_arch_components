@@ -6,15 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
 import mo.ed.aad.navigationcomponents.HomeFragmentDirections;
 import mo.ed.aad.navigationcomponents.R;
@@ -61,7 +57,6 @@ public class BoatsAdapter extends RecyclerView.Adapter<BoatsAdapter.BoatsViewHol
                 });
             }
         }
-
     }
 
     public void onBoatClick(int boatId, View view){
