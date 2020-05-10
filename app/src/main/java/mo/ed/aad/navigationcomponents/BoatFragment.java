@@ -37,8 +37,10 @@ public class BoatFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle!=null){
-//            boatID= Integer.valueOf(bundle.getString("id_dl"));
-//        }else {
+            if (bundle.getString("id_dl")!=null){
+                boatIndex= Integer.valueOf(bundle.getString("id_dl"));
+            }
+        }else {
             boatIndex =BoatFragmentArgs.fromBundle(getArguments()).getId();
         }
 
